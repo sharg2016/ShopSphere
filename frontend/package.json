@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "dev": "npm run dev --prefix shopsphere",
+    "build": "npm run build --prefix shopsphere"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "tailwindcss": "^4.3.3"
+  }
+}

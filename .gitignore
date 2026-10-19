@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+*/node_modules/
+
+# Environment Variables & Secrets
+.env
+.env.*
+!.env.example
+
+# Build / Output files
+dist/
+build/
+*/dist/
+*/build/
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.log
+
+# OS generated
+Thumbs.db
+.DS_Store

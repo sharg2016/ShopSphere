@@ -1,0 +1,36 @@
+import { IsEmail, IsNotEmpty, IsOptional, IsString, Matches } from "class-validator";
+
+export class UpdateSellerDto {
+
+    @IsOptional()
+    @IsString()
+    shopName?: string;
+
+    @IsOptional()
+    @IsEmail({}, { message: 'email must be valid' })
+    email?: string;
+
+    @IsOptional()
+    @Matches(/^[0-9]{10}$/, { message: 'phone number must be 10 digits' })
+    phoneNumber?: string;
+
+    @IsOptional()
+    @IsString()
+    address?: string;
+
+    @IsOptional()
+    @IsString()
+    city?: string;
+
+    @IsOptional()
+    @IsString()
+    state?: string;
+
+    @IsOptional()
+    @Matches(/^[1-9][0-9]{5}$/, { message: 'PIN code must be a valid 6-digit Indian PIN code' })
+    pincode?: string;
+
+    @IsNotEmpty({ message: 'password is required to confirm profile changes' })
+    @IsString()
+    password: string;
+}
