@@ -97,6 +97,12 @@ const LoginPage = () => {
                 >
                     Don't have an account? Sign Up!
                 </Link>
+                <Link
+                    to="/sellerlogin"
+                    className="text-gray-600 hover:text-blue-700 hover:underline transition-all duration-300 ease-in-out hover:scale-105"
+                >
+                    Already a seller? Login!
+                </Link>
             </div>
         </div>
     )
