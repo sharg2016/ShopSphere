@@ -11,7 +11,7 @@ import Checkout from './pages/Checkout'
 import MyProfile from './pages/MyProfile'
 import MyOrders from './pages/MyOrder'
 import SellerSignUp from './pages/SellerSignUp'
-
+import SellerLoginPage from './pages/SellerLogin'
 
 function App() {
 
@@ -29,6 +29,7 @@ function App() {
         <Route path='/myprofile' element={<MyProfile />} />
         <Route path='/myorders' element={<MyOrders />} />
         <Route path='/sellersignup' element={<SellerSignUp />} />
+        <Route path='/sellerlogin' element={<SellerLoginPage />} />
 
       </Routes>
     </BrowserRouter>

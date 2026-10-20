@@ -6,7 +6,6 @@ import Logo from "../assets/SSLogo.png";
 
 const SellerSignUp = () => {
     const navigate = useNavigate();
-    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [password, setPassword] = useState('');
@@ -33,12 +32,16 @@ const SellerSignUp = () => {
         setLoading(true);
         try {
             const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3011';
-            const response = await fetch(`${apiUrl}/auth/signup`, {
+            const response = await fetch(`${apiUrl}/seller/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    name,
+                    shopName,
                     email,
+                    address,
+                    city,
+                    state,
+                    pincode,
                     phoneNumber,
                     password,
                 }),
@@ -49,7 +52,7 @@ const SellerSignUp = () => {
 
             // Redirect to login — let the user log in explicitly after signup
             // so their session is tied to a real DB-verified credential
-            navigate('/login', { state: { signedUp: true } });
+            navigate('/sellerlogin', { state: { signedUp: true } });
         } catch (err: unknown) {
             const message = err instanceof Error ? err.message : 'An unexpected error occurred';
             setError(message);
@@ -82,8 +85,8 @@ const SellerSignUp = () => {
                         type="text"
                         placeholder="Enter Your Shop Name"
                         className="w-1/2 h-10 bg-white rounded px-4 text-black border border-gray-300 focus:border-blue-500 focus:outline-none"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
+                        value={shopName}
+                        onChange={(e) => setShopName(e.target.value)}
                         required
                     />
                     <input
@@ -96,7 +99,7 @@ const SellerSignUp = () => {
                     />
                     <input
                         type="tel"
-                        placeholder="Enter Your Mobile Number - 12345 67890"
+                        placeholder="Enter Your Mobile Number (e.g. +919876543210)"
                         className="w-1/2 h-10 bg-white rounded px-4 text-black border border-gray-300 focus:border-blue-500 focus:outline-none"
                         value={phoneNumber}
                         onChange={(e) => setPhoneNumber(e.target.value)}
@@ -170,10 +173,10 @@ const SellerSignUp = () => {
                         {loading ? 'Signing Up...' : 'Sign Up'}
                     </button>
                     <Link
-                        to="/login"
+                        to="/sellerlogin"
                         className="text-blue-700 hover:text-blue-500 hover:underline transition-all duration-300 ease-in-out hover:scale-105 mt-2"
                     >
-                        Already have an Seller account? Login!
+                        Already have a Seller account? Login!
                     </Link>
 
 

@@ -1,4 +1,4 @@
-import { Body, Controller, createParamDecorator, ExecutionContext, Get, HttpCode, HttpStatus, Patch, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, createParamDecorator, ExecutionContext, Get, HttpCode, HttpStatus, Param, Put, Post, UseGuards } from "@nestjs/common";
 import { SellerService } from "./seller.service.js";
 import { CreateSellerDto, SellerLoginDto } from "./dto/create-seller.dto.js";
 import { AuthGuard } from "@nestjs/passport";
@@ -27,8 +27,15 @@ export class SellerController {
 
     @Post('login')
     @HttpCode(HttpStatus.OK)
-    async loginSeller(@Body() body: { dto: LoginDto }) {
-        return this.sellerService.loginSeller(body.dto);
+    async loginSeller(@Body() dto: SellerLoginDto) {
+        return this.sellerService.loginSeller(dto);
+    }
+
+
+    @Put('update/seller/:id')
+    @UseGuards(AuthGuard('seller-jwt'))
+    async updateSeller(@Param('id') id: string, @Body() dto: UpdateSellerDto) {
+        return this.sellerService.updateProfile(id, dto);
     }
 
 

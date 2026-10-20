@@ -94,8 +94,8 @@ export class SellerService {
     }
 
     // Update seller profile (used by controller updateSeller)
-    async updateProfile(email: string, dto: UpdateSellerDto) {
-        const seller = await this.findByEmail(email);
+    async updateProfile(id: string, dto: UpdateSellerDto) {
+        const seller = await this.findById(id);
         if (!seller) {
             throw new NotFoundException('Seller not found');
         }
