@@ -1,5 +1,5 @@
 import { Edit, Lock, X } from "lucide-react";
-import NavBar from "../components/NavBar";
+import NavBar from "../../components/user/NavBar";
 import { useState, useEffect } from "react";
 
 interface UserProfile {

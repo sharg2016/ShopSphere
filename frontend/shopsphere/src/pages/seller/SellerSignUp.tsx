@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import NavBar from "../components/NavBar";
-import Logo from "../assets/SSLogo.png";
+import NavBar from "../../components/user/NavBar";
+import Logo from "../../assets/SSLogo.png";
 
 
 const SellerSignUp = () => {

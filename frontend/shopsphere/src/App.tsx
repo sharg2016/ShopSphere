@@ -1,17 +1,18 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
-import SignUp from './pages/SignUp'
-import LoginPage from './pages/login'
-import Home from './pages/home'
-import ProductDetails from './components/ProductDetails'
-import ProductPage from './pages/ProductPage'
-import Cart from './pages/Cart'
-import SearchResultPage from './pages/SearchResultPage'
-import Checkout from './pages/Checkout'
-import MyProfile from './pages/MyProfile'
-import MyOrders from './pages/MyOrder'
-import SellerSignUp from './pages/SellerSignUp'
-import SellerLoginPage from './pages/SellerLogin'
+import SignUp from './pages/user/SignUp'
+import LoginPage from './pages/user/login'
+import Home from './pages/user/home'
+import ProductDetails from './components/user/ProductDetails'
+import ProductPage from './pages/user/ProductPage'
+import Cart from './pages/user/Cart'
+import SearchResultPage from './pages/user/SearchResultPage'
+import Checkout from './pages/user/Checkout'
+import MyProfile from './pages/user/MyProfile'
+import MyOrders from './pages/user/MyOrder'
+import SellerSignUp from './pages/seller/SellerSignUp'
+import SellerLoginPage from './pages/seller/SellerLogin'
+import SellerHome from './pages/seller/SellerHome'
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
         <Route path='/myorders' element={<MyOrders />} />
         <Route path='/sellersignup' element={<SellerSignUp />} />
         <Route path='/sellerlogin' element={<SellerLoginPage />} />
+        <Route path='/sellerhome' element={<SellerHome />} />
 
       </Routes>
     </BrowserRouter>

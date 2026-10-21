@@ -1,9 +1,9 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
-import NavBar from "../components/NavBar";
-import type { Product } from "../components/ProductCard";
-import ProductCard from "../components/ProductCard";
-import FilterSideBar from "../components/FilterSideBar";
+import NavBar from "../../components/user/NavBar";
+import type { Product } from "../../components/user/ProductCard";
+import ProductCard from "../../components/user/ProductCard";
+import FilterSideBar from "../../components/user/FilterSideBar";
 
 const ProductPage: React.FC = () => {
     const { category = "" } = useParams<{ category: string }>();

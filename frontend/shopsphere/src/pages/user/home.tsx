@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import NavBar from "../components/NavBar"
-import type { Product } from "../components/ProductCard";
-import SideBar from "../components/SideBar";
-import ProductRow from "../components/ProductRow";
+import NavBar from "../../components/user/NavBar"
+import type { Product } from "../../components/user/ProductCard";
+import SideBar from "../../components/user/SideBar";
+import ProductRow from "../../components/user/ProductRow";
 
 interface CategoryGroup {
     category: string;

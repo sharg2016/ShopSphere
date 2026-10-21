@@ -1,8 +1,8 @@
 import { ArrowLeft, Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
-import type { RootState } from "../store/store";
+import type { RootState } from "../../store/store";
 import { useDispatch, useSelector } from "react-redux"
 import { Link, useNavigate } from "react-router-dom";
-import { clearCart, removeFromCart, updateQuantity } from "../store/cartSlice";
+import { clearCart, removeFromCart, updateQuantity } from "../../store/cartSlice";
 
 const Cart = () => {
     const dispatch = useDispatch();

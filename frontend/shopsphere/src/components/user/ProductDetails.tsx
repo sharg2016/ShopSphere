@@ -5,9 +5,9 @@ import NavBar from "./NavBar";
 import SideBar from "./SideBar";
 import { ChevronLeft, Package, ShoppingCart, Star } from "lucide-react";
 import { useDispatch } from "react-redux";
-import type { AppDispatch } from "../store/store";
-import { addToCart } from "../store/cartSlice";
-import { useAuth } from "../hooks/useAuth";
+import type { AppDispatch } from "../../store/store";
+import { addToCart } from "../../store/cartSlice";
+import { useAuth } from "../../hooks/useAuth";
 
 const ProductDetails = () => {
     const { productId } = useParams<{ productId: string }>();
