@@ -1,5 +1,5 @@
-import NavBar from "../components/NavBar";
-import Logo from "../assets/SSLogo.png";
+import NavBar from "../../components/user/NavBar";
+import Logo from "../../assets/SSLogo.png";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 

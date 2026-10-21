@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import Logo from "../assets/SSLogo.png";
+import Logo from "../../assets/SSLogo.png";
 import { User, LogOut, ChevronDown, Search, ShoppingCart } from "lucide-react";
-import { useAuth } from "../hooks/useAuth";
-import type { RootState } from "../store/store";
+import { useAuth } from "../../hooks/useAuth";
+import type { RootState } from "../../store/store";
 
 
 const getUsername = (): string => {

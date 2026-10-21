@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import Logo from "../assets/SSLogo.png";
+import Logo from "../../assets/SSLogo.png";
 
 const SellerLoginPage = () => {
     const [email, setEmail] = useState('');

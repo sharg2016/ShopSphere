@@ -1,9 +1,9 @@
 import { Star } from "lucide-react";
 import type React from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../../hooks/useAuth";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../store/cartSlice";
+import { addToCart } from "../../store/cartSlice";
 
 export interface Product {
     productId: string;

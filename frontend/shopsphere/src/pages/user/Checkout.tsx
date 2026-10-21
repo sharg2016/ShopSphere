@@ -1,9 +1,9 @@
 ﻿import { ArrowLeft, ArrowRight, CheckCircle2, CreditCard, Landmark, MapPin, Package, ShoppingBag, Smartphone, Truck } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import type { RootState } from "../store/store";
+import type { RootState } from "../../store/store";
 import React, { useState } from "react";
-import { clearCart } from "../store/cartSlice";
+import { clearCart } from "../../store/cartSlice";
 
 interface ShippingForm {
     fullName: string;

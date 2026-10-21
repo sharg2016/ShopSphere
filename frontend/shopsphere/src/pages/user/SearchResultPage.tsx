@@ -1,9 +1,9 @@
 import { useSearchParams } from "react-router-dom";
-import NavBar from "../components/NavBar";
-import SideBar from "../components/SideBar";
+import NavBar from "../../components/user/NavBar";
+import SideBar from "../../components/user/SideBar";
 import { useEffect, useState } from "react";
-import type { Product } from "../components/ProductCard";
-import ProductCard from "../components/ProductCard";
+import type { Product } from "../../components/user/ProductCard";
+import ProductCard from "../../components/user/ProductCard";
 
 
 const SearchResultPage = () => {
