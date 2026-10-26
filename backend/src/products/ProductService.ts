@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Product, ProductDocument, ProductCategory } from './schema/product.schema.js';
+import { createProductDto } from './dto/create-product.dto.js';
+import { retry } from 'rxjs';
 
 @Injectable()
 export class ProductService {
@@ -76,6 +78,27 @@ export class ProductService {
 
     async getProductByPriceAscending() {
         return
+    }
+
+    async addProduct(sellerId: string, dto: createProductDto) {
+        const productId = `prod-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+
+        const newProduct = await this.productModel.create({
+            ...dto,
+            productId,
+            sellerId,
+            isAvailable: true,
+            rating: 0
+        });
+
+        return {
+            message: 'product added successfully.',
+            product: newProduct
+        }
+    }
+
+    async getSellerProduct(sellerId: string) {
+        return await this.productModel.find({ sellerId }).sort({ createdAt: -1 });
     }
 }
 

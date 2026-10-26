@@ -1,5 +1,7 @@
-import { Controller, Get, Inject, NotFoundException, Param, Query } from "@nestjs/common";
+import { Body, Controller, Get, Inject, NotFoundException, Param, Post, Query, Req, UseGuards } from "@nestjs/common";
 import { ProductService } from "./ProductService.js";
+import { createProductDto } from "./dto/create-product.dto.js";
+import { AuthGuard } from "@nestjs/passport";
 
 @Controller('products')
 export class ProductController {
@@ -37,5 +39,19 @@ export class ProductController {
     @Get(':category')
     async getProductByCategory(@Param('category') category: string) {
         return this.productService.findProducts(category);
+    }
+
+    @Post('add')
+    @UseGuards(AuthGuard('seller-jwt'))
+    async addProduct(@Body() dto: createProductDto, @Req() req: any) {
+        const sellerId = req.user.id;
+        return this.productService.addProduct(sellerId, dto);
+    }
+
+    @Get('seller/myitems')
+    @UseGuards(AuthGuard('seller-jwt'))
+    async getMyItems(@Req() req: any) {
+        const sellerId = req.user.id;
+        return this.productService.getSellerProduct(sellerId);
     }
 }

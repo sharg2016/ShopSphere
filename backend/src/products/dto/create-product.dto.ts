@@ -1,6 +1,5 @@
 import { IsIn, IsNotEmpty, IsNumber, IsString, IsUrl, Min } from "class-validator";
-
-const CATEGORIES = ['Camera', 'Laptop', 'SmartPhone', 'TV', 'Speaker', 'Tablet', 'Washing-Machine'];
+import type { ProductCategory } from "../schema/product.schema.js";
 
 export class createProductDto {
 
@@ -9,8 +8,8 @@ export class createProductDto {
     name: string;
 
     @IsNotEmpty()
-    @IsIn(CATEGORIES)
-    category: string;
+    @IsIn(['Camera', 'Laptop', 'SmartPhone', 'TV', 'Speaker', 'Tablet', 'Washing-Machine'])
+    category: ProductCategory;
 
     @IsNotEmpty()
     @IsString()

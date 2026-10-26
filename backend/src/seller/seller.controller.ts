@@ -1,4 +1,4 @@
-import { Body, Controller, createParamDecorator, ExecutionContext, Get, HttpCode, HttpStatus, Param, Put, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, createParamDecorator, ExecutionContext, Get, HttpCode, HttpStatus, Param, Put, Post, UseGuards, Req } from "@nestjs/common";
 import { SellerService } from "./seller.service.js";
 import { CreateSellerDto, SellerLoginDto } from "./dto/create-seller.dto.js";
 import { AuthGuard } from "@nestjs/passport";
@@ -36,6 +36,14 @@ export class SellerController {
     @UseGuards(AuthGuard('seller-jwt'))
     async updateSeller(@Param('id') id: string, @Body() dto: UpdateSellerDto) {
         return this.sellerService.updateProfile(id, dto);
+    }
+
+
+    @Get('dashboard')
+    @UseGuards(AuthGuard('seller-jwt'))
+    async getDashboardData(@Req() req: any) {
+        const sellerId = req.user.id;
+        return this.sellerService.getDashBoardAnalytics(sellerId);
     }
 
 
