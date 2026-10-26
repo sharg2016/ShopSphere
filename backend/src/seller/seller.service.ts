@@ -12,12 +12,16 @@ import { Seller, SellerDocument } from './schema/seller.schema.js';
 import { CreateSellerDto } from './dto/create-seller.dto.js';
 import { UpdateSellerDto } from './dto/update-seller-dto.js';
 import { LoginDto } from '../auth/dto/login.dto.js';
+import { ProductDocument } from '../products/schema/product.schema.js';
+import { OrderDocument, OrderSchema } from '../orders/schema/orders.schems.js';
 
 @Injectable()
 export class SellerService {
     constructor(
         @InjectModel(Seller.name) private sellerModel: Model<SellerDocument>,
         private jwtService: JwtService,
+        private productModel: Model<ProductDocument>,
+        private orderModel: Model<OrderDocument>
     ) { }
 
     // Register a new seller
@@ -170,6 +174,133 @@ export class SellerService {
             state: seller.state,
             pincode: seller.pincode,
             role: 'seller',
+        };
+    }
+
+    async getDashBoardAnalytics(sellerId: string) {
+
+        const products = await this.productModel.find({ sellerId }).exec();
+
+        const totalProducts = products.length;
+        const productIds = products.map(p => p.productId);
+
+        const lowStockCount = products.filter((p: any) =>
+            p.isAvailable === false || (p.stock !== undefined && p.stock < 5)
+        ).length;
+
+
+        if (productIds.length === 0) {
+            return {
+                kpi: {
+                    totalsales: 0,
+                    totalOrders: 0,
+                    totalProducts: 0,
+                    lowStockCount: 0,
+                },
+                revenueTrend: [],
+                topProducts: [],
+                recentOrders: []
+            };
+        }
+
+        const orders = await this.orderModel
+            .find({ 'items.productId': { $in: productIds } })
+            .sort({ createdAt: -1 })
+            .exec();
+
+        const totalOrders = orders.length;
+
+        let totalSales = 0;
+        const productSalesCount: Record<string, { name: string; sales: number; revenue: number }> = {};
+
+        orders.forEach((order) => {
+            order.items.forEach((item) => {
+                if (productIds.includes(item.productId)) {
+                    const itemTotal = Number(item.price) * Number(item.quantity);
+                    totalSales += itemTotal;
+
+
+                    if (!productSalesCount[item.productId]) {
+                        productSalesCount[item.productId] = {
+                            name: item.name,
+                            sales: 0,
+                            revenue: 0
+                        };
+                    }
+
+                    productSalesCount[item.productId].sales += Number(item.quantity);
+                    productSalesCount[item.productId].revenue += Number(itemTotal);
+                }
+            });
+        });
+
+        const topProducts = Object.entries(productSalesCount)
+            .map(([productId, data]) =>
+            ({
+                name: data.name,
+                sales: data.sales,
+                revenue: data.revenue
+            }))
+            .sort((a, b) => b.sales - a.sales)
+            .slice(0, 5);
+
+        const last7days: { day: string; date: string; revenue: number; orders: number }[] = [];
+        const dayOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+        for (let i = 6; i >= 0; i--) {
+            const d = new Date();
+            d.setDate(d.getDate() - 1);
+            const dateStr = d.toISOString().split('T')[0];
+            const dayName = dayOfWeek[d.getDay()];
+
+            const dayOrders = orders.filter((o: any) => {
+                if (!o.createdAt) return false;
+                return new Date(o.createdAt).toISOString().split('T')[0] === dateStr;
+            });
+
+            let dayRevenue = 0;
+            dayOrders.forEach((o) => {
+                o.items.forEach((item) => {
+                    if (productIds.includes(item.productId)) {
+                        dayRevenue += Number(item.price) * Number(item.quantity);
+                    }
+                });
+            });
+
+            last7days.push({
+                day: dayName,
+                date: dateStr,
+                revenue: dayRevenue,
+                orders: dayOrders.length
+            });
+        }
+
+
+        const recentOrders = orders.slice(0, 5).map((order: any) => ({
+            id: order.orderId,
+            customer: order.shippingAddress?.fullName || 'customer',
+            date: new Date(order.createdAt).toLocaleDateString('en-IN',
+                {
+                    day: 'numeric',
+                    month: 'short',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                }),
+            itemsCount: order.items.filter((i: any) => productIds.includes(i.productId)).length,
+            amount: order.items.filter((i) => productIds.includes(i.productId))
+                .reduce((sum, i) => sum + Number(i.price) * Number(i.quantity), 0),
+            status: order.status || 'Processing'
+        }));
+
+        return {
+            kpi: {
+                totalSales,
+                totalOrders,
+                totalProducts,
+                lowStockCount,
+            },
+            revenueTrend: last7days,
+            topProducts,
+            recentOrders,
         };
     }
 }

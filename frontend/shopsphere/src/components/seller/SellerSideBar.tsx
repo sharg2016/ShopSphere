@@ -1,9 +1,12 @@
 import { ChevronDown, LucideLayoutDashboard, Handbag, ShoppingBag, BriefcaseConveyorBelt, LayersPlus, ChartColumn, Tags, Combine, TicketPercent, RectangleHorizontal } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const SellerSideBar = () => {
 
+    const navigate = useNavigate();
+
     return (
-        <aside className="h-screen w-40 bg-white dark:bg-zinc-800">
+        <aside className="h-screen w-50 bg-white dark:bg-zinc-800">
             <nav className="flex overflow-y-auto overflow-x-visible">
                 <div className="flex flex-1 flex-col gap-1 p-3">
 
@@ -32,9 +35,10 @@ const SellerSideBar = () => {
                             <ChevronDown className="w-4 h-4" />
                         </div>
 
-                        <div className="flex flex-row items-center justify-between rounded-xl p-1 text-sm font-semibold text-zinc-900 hover:bg-zinc-200 dark:text-zinc-100 dark:hover:bg-zinc-700 hover:text-black">
+                        <div className="flex flex-row items-center justify-between rounded-xl p-1 text-sm font-semibold text-zinc-900 hover:bg-zinc-200 dark:text-zinc-100 dark:hover:bg-zinc-700 hover:text-black"
+                            onClick={() => navigate('/seller/addproduct')}>
                             <LayersPlus className="w-4 h-4" />
-                            <p className="text-sm"> Add-On </p>
+                            <p className="text-sm"> Add Products </p>
                             <ChevronDown className="w-4 h-4" />
                         </div>
 
@@ -55,7 +59,7 @@ const SellerSideBar = () => {
                         <p className="flex left-1 mt-2 text-[11px] text-bold text-zinc-900 dark:text-zinc-200"> Marketing Section</p>
                         <div className="flex flex-row items-center justify-between rounded-xl p-1 text-sm font-semibold text-zinc-900 hover:bg-zinc-200 dark:text-zinc-100 dark:hover:bg-zinc-700 hover:text-black">
                             <Combine className="w-4 h-4" />
-                            <p className="text-sm"> Campaigns</p>
+                            <p className="text-sm"> Campaings</p>
                             <ChevronDown className="w-4 h-4" />
                         </div>
                         <div className="flex flex-row items-center justify-between rounded-xl p-1 text-sm font-semibold text-zinc-900 hover:bg-zinc-200 dark:text-zinc-100 dark:hover:bg-zinc-700 hover:text-black">
