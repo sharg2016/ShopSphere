@@ -14,6 +14,7 @@ import SellerSignUp from './pages/seller/SellerSignUp'
 import SellerLoginPage from './pages/seller/SellerLogin'
 import SellerHome from './pages/seller/SellerHome'
 import AddProduct from './pages/seller/AddProduct'
+import SellerDashboard from './pages/seller/SellerDashboard'
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
         <Route path='/sellerlogin' element={<SellerLoginPage />} />
         <Route path='/sellerhome' element={<SellerHome />} />
         <Route path='/seller/addproduct' element={<AddProduct />} />
+        <Route path='/seller/dashboard' element={<SellerDashboard />} />
 
       </Routes>
     </BrowserRouter>

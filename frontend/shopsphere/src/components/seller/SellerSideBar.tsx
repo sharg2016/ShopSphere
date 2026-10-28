@@ -10,7 +10,8 @@ const SellerSideBar = () => {
             <nav className="flex overflow-y-auto overflow-x-visible">
                 <div className="flex flex-1 flex-col gap-1 p-3">
 
-                    <div className="flex flex-row items-center justify-between rounded-xl p-1 text-sm font-semibold text-zinc-900 hover:bg-zinc-200 dark:text-zinc-100 dark:hover:bg-zinc-700 hover:text-black">
+                    <div className="flex flex-row items-center justify-between rounded-xl p-1 text-sm font-semibold text-zinc-900 hover:bg-zinc-200 dark:text-zinc-100 dark:hover:bg-zinc-700 hover:text-black"
+                        onClick={() => navigate('/seller/dashboard')}>
                         <LucideLayoutDashboard className="w-4 h-4" />
                         <p className="text-sm"> DashBoard </p>
                         <ChevronDown className="w-4 h-4" />
