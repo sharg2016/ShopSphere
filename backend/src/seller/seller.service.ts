@@ -12,16 +12,16 @@ import { Seller, SellerDocument } from './schema/seller.schema.js';
 import { CreateSellerDto } from './dto/create-seller.dto.js';
 import { UpdateSellerDto } from './dto/update-seller-dto.js';
 import { LoginDto } from '../auth/dto/login.dto.js';
-import { ProductDocument } from '../products/schema/product.schema.js';
-import { OrderDocument, OrderSchema } from '../orders/schema/orders.schems.js';
+import { Product, ProductDocument } from '../products/schema/product.schema.js';
+import { Order, OrderDocument } from '../orders/schema/orders.schems.js';
 
 @Injectable()
 export class SellerService {
     constructor(
         @InjectModel(Seller.name) private sellerModel: Model<SellerDocument>,
         private jwtService: JwtService,
-        private productModel: Model<ProductDocument>,
-        private orderModel: Model<OrderDocument>
+        @InjectModel(Product.name) private productModel: Model<ProductDocument>,
+        @InjectModel(Order.name) private orderModel: Model<OrderDocument>
     ) { }
 
     // Register a new seller
@@ -275,10 +275,10 @@ export class SellerService {
         }
 
 
-        const recentOrders = orders.slice(0, 5).map((order: any) => ({
+        const recentOrders = orders.slice(0, 5).map((order) => ({
             id: order.orderId,
             customer: order.shippingAddress?.fullName || 'customer',
-            date: new Date(order.createdAt).toLocaleDateString('en-IN',
+            date: new Date(order as any['createdAt']).toLocaleDateString('en-IN',
                 {
                     day: 'numeric',
                     month: 'short',
@@ -286,8 +286,8 @@ export class SellerService {
                     minute: '2-digit'
                 }),
             itemsCount: order.items.filter((i: any) => productIds.includes(i.productId)).length,
-            amount: order.items.filter((i) => productIds.includes(i.productId))
-                .reduce((sum, i) => sum + Number(i.price) * Number(i.quantity), 0),
+            amount: order.items.filter((i: any) => productIds.includes(i.productId))
+                .reduce((sum: any, i: any) => sum + Number(i.price) * Number(i.quantity), 0),
             status: order.status || 'Processing'
         }));
 
